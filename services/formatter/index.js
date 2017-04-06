@@ -140,16 +140,15 @@ license_array[0]= license_url+"/blob/master/LICENSE";
        for (var i = 0; i < Math.min(limit, jsoninventory.length); i++) {
          console.log("event type: "+jsoninventory[i].type);
          eventsfeed_projects +=
-           "{\"id\": \"" + jsoninventory[i].repo.id + "\",\"name\": \"" + jsoninventory[i].repo.name + "\",\"type\":\"" +
-           (jsoninventory[i].type).replace("Event", "") + "\",\"user\":\"" + jsoninventory[i].actor.display_login +
-           "\",\"time\": \"" + jsoninventory[i].created_at + "\"";
+           "{'id': '" + jsoninventory[i].repo.id + "','name': '" + jsoninventory[i].repo.name + "','type':'" +
+           (jsoninventory[i].type).replace("Event", "") + "','user':'" + jsoninventory[i].actor.display_login +
+           "','time': '" + jsoninventory[i].created_at + "'";
 
          //loop through type of event
          if (jsoninventory[i].type == "PushEvent")
-
          {
 
-           eventsfeed_projects += ",\"message\": \"" + jsoninventory[i].payload.commits[0].message + "\", \"url\":\"" + jsoninventory[i].payload.commits[0].url + "\"";
+           eventsfeed_projects += ",'message': '" + jsoninventory[i].payload.commits[0].message + "', 'url':'" + jsoninventory[i].payload.commits[0].url + "'";
 
 
 
@@ -157,7 +156,7 @@ license_array[0]= license_url+"/blob/master/LICENSE";
 
          {
            console.log(jsoninventory[i].payload.pull_request.title);
-           eventsfeed_projects += ",\"message\": \"" + jsoninventory[i].payload.pull_request.title + "\", \"url\":\"" + jsoninventory[i].payload.pull_request.url + "\"";
+           eventsfeed_projects += ",'message': '" + jsoninventory[i].payload.pull_request.title + "', 'url':'" + jsoninventory[i].payload.pull_request.url + "'";
 
 
 
@@ -165,20 +164,20 @@ license_array[0]= license_url+"/blob/master/LICENSE";
 
          {
 
-           eventsfeed_projects += ",\"message\": \"" + jsoninventory[i].payload.issue.title + "\", \"url\":\"" + jsoninventory[i].payload.issue.url + "\"";
+           eventsfeed_projects += ",'message': '" + jsoninventory[i].payload.issue.title + "', 'url':'" + jsoninventory[i].payload.issue.url + "'";
 
          }
          eventsfeed_projects += "}";
 
-         if (i + 1 < Math.min(limit, jsoninventory.length)) {
+         if (i + 1 <= Math.min(limit, jsoninventory.length)) {
            eventsfeed_projects += ',';
          }
        }
        eventsfeed = eventsfeed_start + eventsfeed_projects + eventsfeed_end;
-       console.log("eventsfeed: " + eventsfeed_projects);
+       //console.log("eventsfeed: " + eventsfeed_projects);
        console.log("repo name: " + repo["name"]);
        
-       console.log(eventsfeed_projects);
+       //console.log(eventsfeed_projects);
  
      
    }).catch(function (err){
@@ -212,8 +211,9 @@ return eventsfeed_projects;
       delete repo.agency.id;
     }
     
-    repo.license_name='['+this._formatLicense(repo)+']';
-    repo.events=this._formatEvents(repo);
+    repo.license_name=this._formatLicense(repo);
+    
+    //repo.events=JSON.parse('['+this._formatEvents(repo)+']');
     this._formatDates(repo);
 
     return repo;
