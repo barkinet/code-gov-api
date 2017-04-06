@@ -9,11 +9,14 @@ const _                   = require("lodash");
 const moment              = require("moment");
 const Utils               = require("../../utils");
 const Logger              = require("../../utils/logger");
-const request             = require("request-promise");
+const request_promise     = require("request-promise");
+const request             = require("request");
 
 var licensename="";
 var eventsfeed_projects = "";
-
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 class Formatter {
 
   constructor() {
@@ -57,7 +60,7 @@ class Formatter {
      },
        json: true
    };
-    request(options).then( function(res){
+    request_promise(options).then( function(res){
       
         
           //console.log(body);
@@ -110,8 +113,7 @@ license_array[0]= license_url+"/blob/master/LICENSE";
   _formatEvents(repo) {
      // add event activity to repo for GitHub repos
  var eventsurl = repo.repository;
- var limit = 1,
-   jsoninventory, eventsfeed = [],
+ var limit = 1,eventsfeed = [],
    eventsfeed_start, eventsfeed_end = ']';
    
 
@@ -123,76 +125,119 @@ license_array[0]= license_url+"/blob/master/LICENSE";
    eventsurl += "/events";
 
    var options = {
-     uri: eventsurl + "?client_id=" + process.env.CLIENT_ID + "&client_secret=" + process.env.CLIENT_SECRET,
+     url: eventsurl + "?client_id=" + process.env.CLIENT_ID + "&client_secret=" + process.env.CLIENT_SECRET,
      headers: {
        'User-Agent': 'request',
-       'Accept': 'application/vnd.github.full+json'
-     },json: true
+       'Accept': 'application/vnd.github.v3+json'
+     }
    };
 
    
-   request(options).then(function(res){
+   request(options, function (err, response, body){
+      if (err){
+        
+        console.log("event error: "+err);
+      }
+     else{
+       if (response.statusCode==404 || response.statusCode==403){
+         console.log ("url: \n"+options.url);
+         console.log ("this is the body: \n"+body);
+         console.log("type of body: "+typeof(JSON.parse(JSON.stringify(body))));
+       body=JSON.parse(JSON.stringify(body));
      
-       //jsoninventory = JSON.parse(res);
-     jsoninventory = res;
+      if (body.length>0 && body[0].type!=undefined) 
+      { 
+        console.log("size of body: "+body.length);
+        console.log ("type of first entry: "+body[0].type);
+       
        eventsfeed_start = "[";
 
-       for (var i = 0; i < Math.min(limit, jsoninventory.length); i++) {
-         console.log("event type: "+jsoninventory[i].type);
+       for (var i = 0; i < Math.min(limit, body.length); i++) {
+         console.log("event type: "+body[i].type);
          eventsfeed_projects +=
-           "{'id': '" + jsoninventory[i].repo.id + "','name': '" + jsoninventory[i].repo.name + "','type':'" +
-           (jsoninventory[i].type).replace("Event", "") + "','user':'" + jsoninventory[i].actor.display_login +
-           "','time': '" + jsoninventory[i].created_at + "'";
+           "{'id': '" + body[i].repo.id + "','name': '" + body[i].repo.name + "','type':'" +
+           (body[i].type).replace("Event", "") + "','user':'" + body[i].actor.display_login +
+           "','time': '" + body[i].created_at + "'";
 
          //loop through type of event
-         if (jsoninventory[i].type == "PushEvent")
+         if (body[i].type == "PushEvent")
          {
 
-           eventsfeed_projects += ",'message': '" + jsoninventory[i].payload.commits[0].message + "', 'url':'" + jsoninventory[i].payload.commits[0].url + "'";
+           eventsfeed_projects += ",'message': '" + body[i].payload.commits[0].message + "', 'url':'" + body[i].payload.commits[0].url + "'";
 
 
 
-         } else if (jsoninventory[i].type == "PullRequestEvent")
-
-         {
-           console.log(jsoninventory[i].payload.pull_request.title);
-           eventsfeed_projects += ",'message': '" + jsoninventory[i].payload.pull_request.title + "', 'url':'" + jsoninventory[i].payload.pull_request.url + "'";
-
-
-
-         } else if (jsoninventory[i].type == "IssueCommentEvent")
+         } else if (body[i].type == "PullRequestEvent")
 
          {
+           console.log(body[i].payload.pull_request.title);
+           eventsfeed_projects += ",'message': '" + body[i].payload.pull_request.title + "', 'url':'" + body[i].payload.pull_request.url + "'";
 
-           eventsfeed_projects += ",'message': '" + jsoninventory[i].payload.issue.title + "', 'url':'" + jsoninventory[i].payload.issue.url + "'";
+
+
+         } 
+         else if (body[i].type == "CreateEvent")
+
+         {
+           console.log(body[i].payload.ref);
+           eventsfeed_projects += ",'message': '" + body[i].payload.ref_type + "', 'reference':'" + body[i].payload.ref + "'";
+
+
+
+         } 
+         else if (body[i].type == "IssueCommentEvent")
+
+         {
+
+           eventsfeed_projects += ",'message': '" + body[i].payload.issue.title + "', 'url':'" + body[i].payload.issue.url + "'";
+
+         }
+         else if (body[i].type == "IssuesEvent")
+
+         {
+
+           eventsfeed_projects += ",'message': '" + body[i].payload.issue.title + "', 'url':'" + body[i].payload.issue.url + "'";
+
+         }
+         else if (body[i].type == "WatchEvent")
+
+         {
+
+           eventsfeed_projects += ",'message': '" + body[i].payload.action + "', 'user':'" + body[i].actor.login + "'";
+
+         }
+          else if (body[i].type == "ForkEvent")
+
+         {
+
+           eventsfeed_projects += ",'message': '" + body[i].payload.forkee.full_name + "', 'description':'" + body[i].payload.forkee.description + "'";
 
          }
          eventsfeed_projects += "}";
 
-         if (i + 1 <= Math.min(limit, jsoninventory.length)) {
+         if (i + 1 <= Math.min(limit, body.length)) {
            eventsfeed_projects += ',';
          }
        }
        eventsfeed = eventsfeed_start + eventsfeed_projects + eventsfeed_end;
-       //console.log("eventsfeed: " + eventsfeed_projects);
-       console.log("repo name: " + repo["name"]);
-       
-       //console.log(eventsfeed_projects);
- 
-     
-   }).catch(function (err){
-      console.log("event error: "+err);
+      }
       
-    });
+      
+     }
+    }
+    
+   });
+     
+   
    //repo["events"] = eventsfeed + ']';
    //  repo.events=JSON.parse(eventsfeed);
    //repo["events"] = ['{y}'];
 
  } //else
-
+sleep(Math.floor(Math.random()*(7000-2000+1)+2000)); 
 return eventsfeed_projects;
 
-    
+   
   }
 
   _formatRepo(repo) {
@@ -213,7 +258,7 @@ return eventsfeed_projects;
     
     repo.license_name=this._formatLicense(repo);
     
-    //repo.events=JSON.parse('['+this._formatEvents(repo)+']');
+    repo.events=this._formatEvents(repo);
     this._formatDates(repo);
 
     return repo;
