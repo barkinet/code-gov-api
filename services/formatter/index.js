@@ -11,12 +11,11 @@ const Utils               = require("../../utils");
 const Logger              = require("../../utils/logger");
 const request_promise     = require("request-promise");
 const request             = require("request");
+const sleep               = require("sleep");
 
 var licensename="";
-var eventsfeed_projects = "";
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+var contributors, contributordata=[], events,eventdata,eventfeed;
+
 class Formatter {
 
   constructor() {
@@ -55,8 +54,10 @@ class Formatter {
      var options = {
      uri: license_url+"?client_id=" + process.env.CLIENT_ID + "&client_secret=" + process.env.CLIENT_SECRET,
      headers: { 
-       'User-Agent':'request',
-       'Accept': 'application/vnd.github.drax-preview+json'
+       'User-Agent':'code-gov-api',
+       'Accept': 'application/vnd.github.drax-preview+json',
+       'Content-Type': 'application/json'
+       
      },
        json: true
    };
@@ -86,46 +87,167 @@ class Formatter {
     }
     return licensename; 
     
-    
-    
-
-  
-/*  
-//OLD method of searching for a bunch of options for license file
-
-license_array[0]= license_url+"/blob/master/LICENSE";
-  license_array[1] = license_url+"/blob/master/LICENSE";
-  license_array[2] = license_url+"/blob/master/LICENSE.TXT";
-  license_array[3] = license_url+"/blob/master/LICENSE.MD";
-  
-  for (var i = 0; i < license_array.length; i++) {
-      request(license_array[i], function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          //console.log(body);
-          if (repo.license==null) {repo.license=license_array[i];}
-          
-          }
-      })
-  }
-  */
-    
 }
   _formatEvents(repo) {
      // add event activity to repo for GitHub repos
- var eventsurl = repo.repository;
- var limit = 1,eventsfeed = [],
-   eventsfeed_start, eventsfeed_end = ']';
-   
+ 
+    
+ var i,limit = 1;
+  var eventsurl = repo.repository;
 
 
  if (!eventsurl.includes("github.com")) {
    repo["events"] = [];
  } else {
+   
+   //sleep.msleep(Math.floor(Math.random()*(2500-1000+1)+1000)); 
+   sleep.msleep(150); 
    eventsurl = eventsurl.replace("https://github.com/", "https://api.github.com/repos/");
    eventsurl += "/events";
+   
+   console.log("eventsurl: " +eventsurl);
 
    var options = {
      url: eventsurl + "?client_id=" + process.env.CLIENT_ID + "&client_secret=" + process.env.CLIENT_SECRET,
+     headers: {
+       'User-Agent': 'code-gov-api',
+       'Accept': 'application/vnd.github.v3+json',
+       'Content-Type': 'application/json'
+     }
+   };
+
+   
+   request(options, function (err, response, body){
+      if (err){
+        
+        console.error("event error: "+err);
+      }
+     else{
+       
+      
+       try{
+      events=JSON.parse(body);
+         
+      if(events[0]!=undefined) {
+        console.log("type: " +events[0].type);
+         for (var i=0;i< Math.min(limit,events.length); i++)
+           {
+             //eventdata= [{"avatar_url":contributors[i].avatar_url}];
+             
+             
+             eventdata +=
+           "{'id': '" + events[i].repo.id + "','name': '" + events[i].repo.name + "','type':'" +
+           (events[i].type).replace("Event", "") + "','user':'" + events[i].actor.display_login +
+           "','time': '" + events[i].created_at + "'";
+
+         //loop through type of event
+         if (events[i].type == "PushEvent")
+         {
+
+           eventdata += ",'message': '" + events[i].payload.commits[0].message + "', 'url':'" + events[i].payload.commits[0].url + "'";
+
+
+
+         } else if (events[i].type == "PullRequestEvent")
+
+         {
+           console.log(events[i].payload.pull_request.title);
+           eventdata += ",'message': '" + events[i].payload.pull_request.title + "', 'url':'" + events[i].payload.pull_request.url + "'";
+
+
+
+         } 
+         else if (events[i].type == "CreateEvent")
+
+         {
+           console.log(events[i].payload.ref);
+           eventdata += ",'message': '" + events[i].payload.ref_type + "', 'reference':'" + events[i].payload.ref + "'";
+
+
+
+         } 
+         else if (events[i].type == "IssueCommentEvent")
+
+         {
+
+           eventdata += ",'message': '" + events[i].payload.issue.title + "', 'url':'" + events[i].payload.issue.url + "'";
+
+         }
+         else if (events[i].type == "IssuesEvent")
+
+         {
+
+           eventdata += ",'message': '" + events[i].payload.issue.title + "', 'url':'" + events[i].payload.issue.url + "'";
+
+         }
+         else if (events[i].type == "WatchEvent")
+
+         {
+
+           eventdata += ",'message': '" + events[i].payload.action + "', 'user':'" + events[i].actor.login + "'";
+
+         }
+          else if (events[i].type == "ForkEvent")
+
+         {
+
+           eventdata += ",'message': '" + events[i].payload.forkee.full_name + "', 'description':'" + events[i].payload.forkee.description + "'";
+
+         }
+         eventdata += "}";
+
+         if (i + 1 <= Math.min(limit, events.length)) {
+           eventdata += ',';
+         }
+       }
+       eventfeed = "[" + eventdata + "]";
+      
+      }
+       }//closing try
+       catch(e)
+         {
+           console.error(e);
+         }
+      
+       
+     
+    } //close else
+    
+   });
+     
+   
+
+
+ } //else
+
+    
+return eventdata;
+
+   
+  }
+  _formatContributors(repo) {
+     // add event activity to repo for GitHub repos
+ 
+    
+ var i,limit = 1;
+  var contributorsurl = repo.repository;
+
+//contributordata.push({"login":"testuser","avatar_url":"https://avatars2.githubusercontent.com/u/6654994?v=3","html_url":"https://github.com/lukad03"});
+    //contributordata.push({"login":"testuser2","avatar_url":"https://avatars2.githubusercontent.com/u/6654994?v=3","html_url":"https://github.com/lukad04"});
+    
+ if (!contributorsurl.includes("github.com")) {
+   repo["events"] = [];
+ } else {
+   
+   //sleep.msleep(Math.floor(Math.random()*(2500-1000+1)+1000)); 
+   sleep.msleep(50); 
+   contributorsurl = contributorsurl.replace("https://github.com/", "https://api.github.com/repos/");
+   contributorsurl += "/contributors";
+   
+   console.log("eventsurl: " +contributorsurl);
+
+   var options = {
+     url: contributorsurl + "?client_id=" + process.env.CLIENT_ID + "&client_secret=" + process.env.CLIENT_SECRET,
      headers: {
        'User-Agent': 'request',
        'Accept': 'application/vnd.github.v3+json'
@@ -136,106 +258,38 @@ license_array[0]= license_url+"/blob/master/LICENSE";
    request(options, function (err, response, body){
       if (err){
         
-        console.log("event error: "+err);
+        console.error("event error: "+err);
       }
      else{
-       if (response.statusCode==404 || response.statusCode==403){
-         console.log ("url: \n"+options.url);
-         console.log ("this is the body: \n"+body);
-         console.log("type of body: "+typeof(JSON.parse(JSON.stringify(body))));
-       body=JSON.parse(JSON.stringify(body));
-     
-      if (body.length>0 && body[0].type!=undefined) 
-      { 
-        console.log("size of body: "+body.length);
-        console.log ("type of first entry: "+body[0].type);
        
-       eventsfeed_start = "[";
-
-       for (var i = 0; i < Math.min(limit, body.length); i++) {
-         console.log("event type: "+body[i].type);
-         eventsfeed_projects +=
-           "{'id': '" + body[i].repo.id + "','name': '" + body[i].repo.name + "','type':'" +
-           (body[i].type).replace("Event", "") + "','user':'" + body[i].actor.display_login +
-           "','time': '" + body[i].created_at + "'";
-
-         //loop through type of event
-         if (body[i].type == "PushEvent")
-         {
-
-           eventsfeed_projects += ",'message': '" + body[i].payload.commits[0].message + "', 'url':'" + body[i].payload.commits[0].url + "'";
-
-
-
-         } else if (body[i].type == "PullRequestEvent")
-
-         {
-           console.log(body[i].payload.pull_request.title);
-           eventsfeed_projects += ",'message': '" + body[i].payload.pull_request.title + "', 'url':'" + body[i].payload.pull_request.url + "'";
-
-
-
-         } 
-         else if (body[i].type == "CreateEvent")
-
-         {
-           console.log(body[i].payload.ref);
-           eventsfeed_projects += ",'message': '" + body[i].payload.ref_type + "', 'reference':'" + body[i].payload.ref + "'";
-
-
-
-         } 
-         else if (body[i].type == "IssueCommentEvent")
-
-         {
-
-           eventsfeed_projects += ",'message': '" + body[i].payload.issue.title + "', 'url':'" + body[i].payload.issue.url + "'";
-
-         }
-         else if (body[i].type == "IssuesEvent")
-
-         {
-
-           eventsfeed_projects += ",'message': '" + body[i].payload.issue.title + "', 'url':'" + body[i].payload.issue.url + "'";
-
-         }
-         else if (body[i].type == "WatchEvent")
-
-         {
-
-           eventsfeed_projects += ",'message': '" + body[i].payload.action + "', 'user':'" + body[i].actor.login + "'";
-
-         }
-          else if (body[i].type == "ForkEvent")
-
-         {
-
-           eventsfeed_projects += ",'message': '" + body[i].payload.forkee.full_name + "', 'description':'" + body[i].payload.forkee.description + "'";
-
-         }
-         eventsfeed_projects += "}";
-
-         if (i + 1 <= Math.min(limit, body.length)) {
-           eventsfeed_projects += ',';
-         }
-       }
-       eventsfeed = eventsfeed_start + eventsfeed_projects + eventsfeed_end;
-      }
       
+       try{
+      contributors=JSON.parse(body);
+      if (contributors[0]!=undefined){
+         console.log("login: " +contributors[0].login);
+         for (var i=0;i< Math.min(limit,contributors.length); i++)
+           {
+             contributordata.push({"login":contributors[i].login,"avatar_url":contributors[i].avatar_url,"html_url":contributors[i].html_url});
+           }
+        }  
+       }//closing try
+       catch(e)
+         {
+           console.error(e);
+         }
+       
       
-     }
+     
     }
     
    });
      
-   
-   //repo["events"] = eventsfeed + ']';
-   //  repo.events=JSON.parse(eventsfeed);
-   //repo["events"] = ['{y}'];
+
 
  } //else
-sleep(Math.floor(Math.random()*(7000-2000+1)+2000)); 
-return eventsfeed_projects;
+
+    
+return contributordata;
 
    
   }
@@ -257,8 +311,8 @@ return eventsfeed_projects;
     }
     
     repo.license_name=this._formatLicense(repo);
-    
-    repo.events=this._formatEvents(repo);
+    repo.contributors=this._formatContributors(repo);
+    //repo.events=JSON.parse(this._formatEvents(repo));
     this._formatDates(repo);
 
     return repo;

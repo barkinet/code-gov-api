@@ -1,35 +1,73 @@
 {
-  "timestamp": "Thu Apr 06 2017 11:53:04 GMT-0400 (EDT)",
+  "timestamp": "Wed Apr 12 2017 11:52:13 GMT-0400 (EDT)",
   "statuses": {
     "USDA": {
-      "status": "NOT FULLY COMPLIANT: 25 WARNINGS, 25 validation errors, 25 REQUESTED ENHANCEMENTS",
+      "status": "NOT FULLY COMPLIANT: 27 WARNINGS, 27 validation errors",
       "issues": [
+        {
+          "repoID": "usda_ocio_digitalgov_analytics",
+          "agency": "Department of Agriculture",
+          "organization": "OCIO",
+          "project_name": "DigitalGov Analytics",
+          "issues": {
+            "enhancements": [],
+            "warnings": [
+              {
+                "keyword": "format",
+                "dataPath": ".license",
+                "schemaPath": "#/properties/license/format",
+                "params": {
+                  "format": "uri"
+                },
+                "message": "should match format \"uri\""
+              }
+            ],
+            "errors": []
+          }
+        },
+        {
+          "repoID": "usda_aphis_animal_disease_spread_model",
+          "agency": "Department of Agriculture",
+          "organization": "APHIS",
+          "project_name": "Animal Disease Spread Model",
+          "issues": {
+            "enhancements": [],
+            "warnings": [
+              {
+                "keyword": "format",
+                "dataPath": ".license",
+                "schemaPath": "#/properties/license/format",
+                "params": {
+                  "format": "uri"
+                },
+                "message": "should match format \"uri\""
+              }
+            ],
+            "errors": []
+          }
+        },
         {
           "repoID": "usda_usda_usda_apis",
           "agency": "Department of Agriculture",
           "organization": "USDA",
           "project_name": "USDA-APIs",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "type",
-                "dataPath": ".contact.name",
-                "schemaPath": "#/properties/contact/properties/name/type",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "type": "string"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should be string"
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -41,26 +79,22 @@
           "organization": "USDA",
           "project_name": "RIDB",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "type",
-                "dataPath": ".contact.name",
-                "schemaPath": "#/properties/contact/properties/name/type",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "type": "string"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should be string"
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -72,26 +106,22 @@
           "organization": "USDA",
           "project_name": "data-standards",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "type",
-                "dataPath": ".contact.name",
-                "schemaPath": "#/properties/contact/properties/name/type",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "type": "string"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should be string"
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -103,26 +133,22 @@
           "organization": "ARS-ARGIL",
           "project_name": "BovineTFBS",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "type": "string"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should be string"
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -134,22 +160,12 @@
           "organization": "ARS-ARGIL",
           "project_name": "cattleCNV",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
                 "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "dataPath": ".description",
+                "schemaPath": "#/properties/description/type",
                 "params": {
                   "type": "string"
                 },
@@ -165,22 +181,12 @@
           "organization": "ARS-ARGIL",
           "project_name": "cattleSD",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
                 "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "dataPath": ".description",
+                "schemaPath": "#/properties/description/type",
                 "params": {
                   "type": "string"
                 },
@@ -196,22 +202,12 @@
           "organization": "ARS-ARGIL",
           "project_name": "Alusite",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
                 "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "dataPath": ".description",
+                "schemaPath": "#/properties/description/type",
                 "params": {
                   "type": "string"
                 },
@@ -227,22 +223,12 @@
           "organization": "ARS-ARGIL",
           "project_name": "tfbsConsSites",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
                 "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "dataPath": ".description",
+                "schemaPath": "#/properties/description/type",
                 "params": {
                   "type": "string"
                 },
@@ -258,22 +244,12 @@
           "organization": "ARS-ARGIL",
           "project_name": "divergence",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
                 "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "dataPath": ".description",
+                "schemaPath": "#/properties/description/type",
                 "params": {
                   "type": "string"
                 },
@@ -289,22 +265,12 @@
           "organization": "ARS-ARGIL",
           "project_name": "BovineHapMap",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
                 "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "dataPath": ".description",
+                "schemaPath": "#/properties/description/type",
                 "params": {
                   "type": "string"
                 },
@@ -320,22 +286,12 @@
           "organization": "ARS-ARGIL",
           "project_name": "usda-ars-agil.github.io",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
                 "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "dataPath": ".description",
+                "schemaPath": "#/properties/description/type",
                 "params": {
                   "type": "string"
                 },
@@ -351,22 +307,12 @@
           "organization": "ERS",
           "project_name": "website-content-api",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
                 "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "dataPath": ".description",
+                "schemaPath": "#/properties/description/type",
                 "params": {
                   "type": "string"
                 },
@@ -382,26 +328,22 @@
           "organization": "ERS",
           "project_name": "widgets",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "type": "string"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should be string"
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -413,26 +355,22 @@
           "organization": "ERS",
           "project_name": "data-apis",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "type",
-                "dataPath": ".contact.name",
-                "schemaPath": "#/properties/contact/properties/name/type",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "type": "string"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should be string"
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -444,22 +382,12 @@
           "organization": "ERS",
           "project_name": "geospatial-apis",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
                 "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "dataPath": ".description",
+                "schemaPath": "#/properties/description/type",
                 "params": {
                   "type": "string"
                 },
@@ -475,26 +403,22 @@
           "organization": "FSA",
           "project_name": "fsa-style",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "type",
-                "dataPath": ".contact.name",
-                "schemaPath": "#/properties/contact/properties/name/type",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "type": "string"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should be string"
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -506,26 +430,22 @@
           "organization": "FSA",
           "project_name": "fsa-design-system",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "type",
-                "dataPath": ".contact.name",
-                "schemaPath": "#/properties/contact/properties/name/type",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "type": "string"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should be string"
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -537,26 +457,22 @@
           "organization": "FSA",
           "project_name": "fsa-design-system-draft-content",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "format",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/format",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "format": "uri"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should match format \"uri\""
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -568,22 +484,12 @@
           "organization": "FSA",
           "project_name": "usda-fsa.github.io",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
                 "keyword": "type",
-                "dataPath": ".contact.name",
-                "schemaPath": "#/properties/contact/properties/name/type",
+                "dataPath": ".description",
+                "schemaPath": "#/properties/description/type",
                 "params": {
                   "type": "string"
                 },
@@ -599,26 +505,22 @@
           "organization": "FSA",
           "project_name": "playbook-draft-content",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "format",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/format",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "format": "uri"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should match format \"uri\""
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -630,26 +532,22 @@
           "organization": "VS",
           "project_name": "public",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "format",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/format",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "format": "uri"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should match format \"uri\""
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -661,26 +559,22 @@
           "organization": "VS",
           "project_name": "reference_guided_assembly",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "type": "string"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should be string"
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -692,26 +586,22 @@
           "organization": "VS",
           "project_name": "snp_analysis",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "type",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/type",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "type": "string"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should be string"
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -723,26 +613,22 @@
           "organization": "VS",
           "project_name": "playground",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "format",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/format",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "format": "uri"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should match format \"uri\""
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -754,26 +640,22 @@
           "organization": "VS",
           "project_name": "ksnp",
           "issues": {
-            "enhancements": [
-              {
-                "keyword": "type",
-                "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
-                "params": {
-                  "type": "string"
-                },
-                "message": "should be string"
-              }
-            ],
+            "enhancements": [],
             "warnings": [
               {
-                "keyword": "format",
-                "dataPath": ".homepage",
-                "schemaPath": "#/properties/homepage/format",
+                "keyword": "enum",
+                "dataPath": ".status",
+                "schemaPath": "#/properties/status/enum",
                 "params": {
-                  "format": "uri"
+                  "allowedValues": [
+                    "Ideation",
+                    "Alpha",
+                    "Beta",
+                    "Production",
+                    "Archival"
+                  ]
                 },
-                "message": "should match format \"uri\""
+                "message": "should be equal to one of the allowed values"
               }
             ],
             "errors": []
@@ -785,22 +667,22 @@
           "name": "Department of Agriculture",
           "acronym": "USDA",
           "website": "https://usda.gov/",
-          "codeUrl": "https://www.usda.gov/code.json",
+          "codeUrl": "/data/fallback/USDA.json",
           "requirements": {
-            "agencyWidePolicy": 0.5,
+            "agencyWidePolicy": 0,
             "schemaFormat": 0.5,
-            "overallCompliance": 0.5
+            "overallCompliance": 0.25
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 0.5,
+        "agencyWidePolicy": 0,
         "schemaFormat": 0.5,
-        "overallCompliance": 0.5
+        "overallCompliance": 0.25
       }
     },
     "DOC": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 0)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -809,22 +691,22 @@
           "name": "Department of Commerce",
           "acronym": "DOC",
           "website": "https://www.commerce.gov/",
-          "codeUrl": "https://www.commerce.gov/code.json",
+          "codeUrl": "/data/fallback/DOC.json",
           "requirements": {
-            "agencyWidePolicy": 1,
+            "agencyWidePolicy": 0,
             "schemaFormat": 0,
-            "overallCompliance": 0.5
+            "overallCompliance": 0
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 1,
+        "agencyWidePolicy": 0,
         "schemaFormat": 0,
-        "overallCompliance": 0.5
+        "overallCompliance": 0
       }
     },
     "DOD": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 0)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -833,7 +715,7 @@
           "name": "Department of Defense",
           "acronym": "DOD",
           "website": "https://www.defense.gov/",
-          "codeUrl": "https://www.defense.gov/code.json",
+          "codeUrl": "/data/fallback/DOD.json",
           "requirements": {
             "agencyWidePolicy": 0,
             "schemaFormat": 0,
@@ -855,23 +737,23 @@
         "agency": {
           "name": "Department of Education",
           "acronym": "ED",
-          "website": "http://www.ed.gov/",
-          "codeUrl": "https://www2.ed.gov/code.json",
+          "website": "https://ed.gov/",
+          "codeUrl": "/data/fallback/ED.json",
           "requirements": {
-            "agencyWidePolicy": 1,
+            "agencyWidePolicy": 0,
             "schemaFormat": 1,
-            "overallCompliance": 1
+            "overallCompliance": 0.5
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 1,
+        "agencyWidePolicy": 0,
         "schemaFormat": 1,
-        "overallCompliance": 1
+        "overallCompliance": 0.5
       }
     },
     "DOE": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 0)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -880,18 +762,18 @@
           "name": "Department of Energy",
           "acronym": "DOE",
           "website": "https://energy.gov/",
-          "codeUrl": "https://energy.gov/code.json",
+          "codeUrl": "/data/fallback/DOE.json",
           "requirements": {
-            "agencyWidePolicy": 0.5,
+            "agencyWidePolicy": 0,
             "schemaFormat": 0,
-            "overallCompliance": 0.25
+            "overallCompliance": 0
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 0.5,
+        "agencyWidePolicy": 0,
         "schemaFormat": 0,
-        "overallCompliance": 0.25
+        "overallCompliance": 0
       }
     },
     "HHS": {
@@ -925,18 +807,42 @@
           "name": "Department of Health and Human Services",
           "acronym": "HHS",
           "website": "https://hhs.gov",
-          "codeUrl": "https://hhs.gov/code.json",
+          "codeUrl": "/data/fallback/HHS.json",
           "requirements": {
-            "agencyWidePolicy": 1,
+            "agencyWidePolicy": 0,
             "schemaFormat": 1,
-            "overallCompliance": 1
+            "overallCompliance": 0.5
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 1,
+        "agencyWidePolicy": 0,
         "schemaFormat": 1,
-        "overallCompliance": 1
+        "overallCompliance": 0.5
+      }
+    },
+    "DHS": {
+      "status": "FAILURE: MISSING PROJECTS FIELD",
+      "issues": [],
+      "version": "",
+      "metadata": {
+        "agency": {
+          "id": 28,
+          "name": "Department of Homeland Security",
+          "acronym": "DHS",
+          "website": "https://www.dhs.gov",
+          "codeUrl": "/data/fallback/DHS.json",
+          "requirements": {
+            "agencyWidePolicy": 0,
+            "schemaFormat": 0,
+            "overallCompliance": 0
+          }
+        }
+      },
+      "requirements": {
+        "agencyWidePolicy": 0,
+        "schemaFormat": 0,
+        "overallCompliance": 0
       }
     },
     "HUD": {
@@ -947,46 +853,22 @@
           "name": "Department of Housing and Urban Development",
           "acronym": "HUD",
           "website": "https://www.hud.gov/",
-          "codeUrl": "https://www.hud.gov/code.json",
+          "codeUrl": "/data/fallback/HUD.json",
           "requirements": {
-            "agencyWidePolicy": 0.5,
+            "agencyWidePolicy": 0,
             "schemaFormat": 1,
-            "overallCompliance": 0.75
+            "overallCompliance": 0.5
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 0.5,
+        "agencyWidePolicy": 0,
         "schemaFormat": 1,
-        "overallCompliance": 0.75
-      }
-    },
-    "DHS": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 0)",
-      "issues": [],
-      "version": "",
-      "metadata": {
-        "agency": {
-          "id": 28,
-          "name": "Department of Homeland Security",
-          "acronym": "DHS",
-          "website": "https://www.dhs.gov",
-          "codeUrl": "https://www.dhs.gov/code.json",
-          "requirements": {
-            "agencyWidePolicy": 0.5,
-            "schemaFormat": 0,
-            "overallCompliance": 0.25
-          }
-        }
-      },
-      "requirements": {
-        "agencyWidePolicy": 0.5,
-        "schemaFormat": 0,
-        "overallCompliance": 0.25
+        "overallCompliance": 0.5
       }
     },
     "DOI": {
-      "status": "FAILURE: ERROR WHEN FETCHING (unable to verify the first certificate)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -995,22 +877,22 @@
           "name": "Department of Interior",
           "acronym": "DOI",
           "website": "https://data.doi.gov/",
-          "codeUrl": "https://data.doi.gov/code.json",
+          "codeUrl": "/data/fallback/DOI.json",
           "requirements": {
-            "agencyWidePolicy": 0.5,
+            "agencyWidePolicy": 0,
             "schemaFormat": 0,
-            "overallCompliance": 0.25
+            "overallCompliance": 0
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 0.5,
+        "agencyWidePolicy": 0,
         "schemaFormat": 0,
-        "overallCompliance": 0.25
+        "overallCompliance": 0
       }
     },
     "DOJ": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 0)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -1019,22 +901,22 @@
           "name": "Department of Justice",
           "acronym": "DOJ",
           "website": "https://justice.gov",
-          "codeUrl": "https://justice.gov/code.json",
+          "codeUrl": "/data/fallback/DOJ.json",
           "requirements": {
-            "agencyWidePolicy": 0.5,
+            "agencyWidePolicy": 0,
             "schemaFormat": 0,
-            "overallCompliance": 0.25
+            "overallCompliance": 0
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 0.5,
+        "agencyWidePolicy": 0,
         "schemaFormat": 0,
-        "overallCompliance": 0.25
+        "overallCompliance": 0
       }
     },
     "DOL": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 4)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -1043,7 +925,7 @@
           "name": "Department of Labor",
           "acronym": "DOL",
           "website": "https://www.dol.gov",
-          "codeUrl": "https://www.dol.gov/code.json",
+          "codeUrl": "/data/fallback/DOL.json",
           "requirements": {
             "agencyWidePolicy": 0,
             "schemaFormat": 0,
@@ -1058,26 +940,27 @@
       }
     },
     "DOS": {
-      "status": "FULLY COMPLIANT: 0 validation errors",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
-      "version": "1.0.3",
+      "version": "",
       "metadata": {
         "agency": {
+          "id": 11,
           "name": "Department of State",
           "acronym": "DOS",
           "website": "https://state.gov/",
-          "codeUrl": "http://state.gov/code.json",
+          "codeUrl": "/data/fallback/DOS.json",
           "requirements": {
-            "agencyWidePolicy": 0.5,
-            "schemaFormat": 1,
-            "overallCompliance": 0.75
+            "agencyWidePolicy": 0,
+            "schemaFormat": 0,
+            "overallCompliance": 0
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 0.5,
-        "schemaFormat": 1,
-        "overallCompliance": 0.75
+        "agencyWidePolicy": 0,
+        "schemaFormat": 0,
+        "overallCompliance": 0
       }
     },
     "DOT": {
@@ -1089,22 +972,22 @@
           "name": "Department of Transportation",
           "acronym": "DOT",
           "website": "https://www.transportation.gov/",
-          "codeUrl": "https://www.transportation.gov/code.json",
+          "codeUrl": "/data/fallback/DOT.json",
           "requirements": {
-            "agencyWidePolicy": 0.5,
+            "agencyWidePolicy": 0,
             "schemaFormat": 1,
-            "overallCompliance": 0.75
+            "overallCompliance": 0.5
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 0.5,
+        "agencyWidePolicy": 0,
         "schemaFormat": 1,
-        "overallCompliance": 0.75
+        "overallCompliance": 0.5
       }
     },
     "TRE": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 2)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -1113,7 +996,7 @@
           "name": "Department of Treasury",
           "acronym": "TRE",
           "website": "https://www.treasury.gov/",
-          "codeUrl": "https://www.treasury.gov/code.json",
+          "codeUrl": "/data/fallback/TRE.json",
           "requirements": {
             "agencyWidePolicy": 0,
             "schemaFormat": 0,
@@ -1128,7 +1011,7 @@
       }
     },
     "VA": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 0)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -1137,7 +1020,7 @@
           "name": "Department of Veterans Affairs",
           "acronym": "VA",
           "website": "https://va.gov/",
-          "codeUrl": "https://va.gov/code.json",
+          "codeUrl": "/data/fallback/VA.json",
           "requirements": {
             "agencyWidePolicy": 0,
             "schemaFormat": 0,
@@ -1152,7 +1035,7 @@
       }
     },
     "EPA": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 0)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -1161,7 +1044,7 @@
           "name": "Environmental Protection Agency",
           "acronym": "EPA",
           "website": "https://epa.gov/",
-          "codeUrl": "https://epa.gov/code.json",
+          "codeUrl": "/data/fallback/EPA.json",
           "requirements": {
             "agencyWidePolicy": 0,
             "schemaFormat": 0,
@@ -5469,22 +5352,22 @@
           "name": "National Aeronautics and Space Administration",
           "acronym": "NASA",
           "website": "https://nasa.gov/",
-          "codeUrl": "https://code.nasa.gov/code.json",
+          "codeUrl": "/data/fallback/NASA.json",
           "requirements": {
-            "agencyWidePolicy": 1,
+            "agencyWidePolicy": 0,
             "schemaFormat": 0.5,
-            "overallCompliance": 0.75
+            "overallCompliance": 0.25
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 1,
+        "agencyWidePolicy": 0,
         "schemaFormat": 0.5,
-        "overallCompliance": 0.75
+        "overallCompliance": 0.25
       }
     },
     "AID": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 0)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -5493,22 +5376,22 @@
           "name": "Agency for International Development",
           "acronym": "AID",
           "website": "https://usaid.gov/",
-          "codeUrl": "https://usaid.gov/code.json",
+          "codeUrl": "/data/fallback/AID.json",
           "requirements": {
-            "agencyWidePolicy": 1,
+            "agencyWidePolicy": 0,
             "schemaFormat": 0,
-            "overallCompliance": 0.5
+            "overallCompliance": 0
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 1,
+        "agencyWidePolicy": 0,
         "schemaFormat": 0,
-        "overallCompliance": 0.5
+        "overallCompliance": 0
       }
     },
     "FEMA": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 0)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -5517,16 +5400,16 @@
           "name": "Federal Emergency Management Agency",
           "acronym": "FEMA",
           "website": "https://fema.gov/",
-          "codeUrl": "https://fema.gov/code.json",
+          "codeUrl": "/data/fallback/FEMA.json",
           "requirements": {
-            "agencyWidePolicy": null,
+            "agencyWidePolicy": 0,
             "schemaFormat": 0,
             "overallCompliance": 0
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": null,
+        "agencyWidePolicy": 0,
         "schemaFormat": 0,
         "overallCompliance": 0
       }
@@ -14470,7 +14353,7 @@
           "name": "General Services Administration",
           "acronym": "GSA",
           "website": "https://gsa.gov/",
-          "codeUrl": "https://gsa.gov/code.json",
+          "codeUrl": "/data/fallback/GSA.json",
           "requirements": {
             "agencyWidePolicy": 1,
             "schemaFormat": 1,
@@ -14492,18 +14375,18 @@
           "name": "National Science Foundation",
           "acronym": "NSF",
           "website": "https://nsf.gov/",
-          "codeUrl": "https://nsf.gov/code.json",
+          "codeUrl": "/data/fallback/NSF.json",
           "requirements": {
-            "agencyWidePolicy": 1,
+            "agencyWidePolicy": 0,
             "schemaFormat": 1,
-            "overallCompliance": 1
+            "overallCompliance": 0.5
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 1,
+        "agencyWidePolicy": 0,
         "schemaFormat": 1,
-        "overallCompliance": 1
+        "overallCompliance": 0.5
       }
     },
     "NRC": {
@@ -14515,22 +14398,22 @@
           "name": "Nuclear Regulatory Commission",
           "acronym": "NRC",
           "website": "https://www.nrc.gov/",
-          "codeUrl": "https://www.nrc.gov/code.json",
+          "codeUrl": "/data/fallback/NRC.json",
           "requirements": {
-            "agencyWidePolicy": 1,
+            "agencyWidePolicy": 0,
             "schemaFormat": 1,
-            "overallCompliance": 1
+            "overallCompliance": 0.5
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 1,
+        "agencyWidePolicy": 0,
         "schemaFormat": 1,
-        "overallCompliance": 1
+        "overallCompliance": 0.5
       }
     },
     "OPM": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 1)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -14539,41 +14422,51 @@
           "name": "Office of Personnel Management",
           "acronym": "OPM",
           "website": "https://opm.gov/",
-          "codeUrl": "https://opm.gov/code.json",
+          "codeUrl": "/data/fallback/OPM.json",
           "requirements": {
-            "agencyWidePolicy": 0.5,
+            "agencyWidePolicy": 0,
             "schemaFormat": 0,
-            "overallCompliance": 0.25
+            "overallCompliance": 0
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 0.5,
+        "agencyWidePolicy": 0,
         "schemaFormat": 0,
-        "overallCompliance": 0.25
+        "overallCompliance": 0
       }
     },
     "SBA": {
-      "status": "FULLY COMPLIANT: 0 validation errors, 1 REQUESTED ENHANCEMENTS",
+      "status": "NOT FULLY COMPLIANT: 1 ERRORS, 1 WARNINGS, 2 validation errors",
       "issues": [
         {
           "repoID": "sba_oracletosql",
           "agency": "Small Business Administration",
           "project_name": "OracletoSQL",
           "issues": {
-            "enhancements": [
+            "enhancements": [],
+            "warnings": [
               {
-                "keyword": "type",
+                "keyword": "format",
                 "dataPath": ".license",
-                "schemaPath": "#/properties/license/type",
+                "schemaPath": "#/properties/license/format",
                 "params": {
-                  "type": "string"
+                  "format": "uri"
                 },
-                "message": "should be string"
+                "message": "should match format \"uri\""
               }
             ],
-            "warnings": [],
-            "errors": []
+            "errors": [
+              {
+                "keyword": "required",
+                "dataPath": "",
+                "schemaPath": "#/required",
+                "params": {
+                  "missingProperty": "tags"
+                },
+                "message": "should have required property 'tags'"
+              }
+            ]
           }
         }
       ],
@@ -14582,23 +14475,107 @@
           "name": "Small Business Administration",
           "acronym": "SBA",
           "website": "https://sba.gov/",
-          "codeUrl": "https://sba.gov/code.json",
+          "codeUrl": "/data/fallback/SBA.json",
           "requirements": {
-            "agencyWidePolicy": 1,
-            "schemaFormat": 1,
-            "overallCompliance": 1
+            "agencyWidePolicy": 0,
+            "schemaFormat": 0.5,
+            "overallCompliance": 0.25
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 1,
-        "schemaFormat": 1,
-        "overallCompliance": 1
+        "agencyWidePolicy": 0,
+        "schemaFormat": 0.5,
+        "overallCompliance": 0.25
       }
     },
     "NARA": {
-      "status": "FULLY COMPLIANT: 0 validation errors, 2 REQUESTED ENHANCEMENTS",
+      "status": "NOT FULLY COMPLIANT: 11 WARNINGS, 11 validation errors, 2 REQUESTED ENHANCEMENTS",
       "issues": [
+        {
+          "repoID": "nara_national_archives_records_administration_avi_metaedit",
+          "agency": "National Archives",
+          "organization": "National Archives and Records Administration",
+          "project_name": "AVI-MetaEdit",
+          "issues": {
+            "enhancements": [],
+            "warnings": [
+              {
+                "keyword": "type",
+                "dataPath": ".exemption",
+                "schemaPath": "#/properties/exemption/type",
+                "params": {
+                  "type": "integer"
+                },
+                "message": "should be integer"
+              }
+            ],
+            "errors": []
+          }
+        },
+        {
+          "repoID": "nara_national_archives_records_administration_nara_catalog_node_client",
+          "agency": "National Archives",
+          "organization": "National Archives and Records Administration",
+          "project_name": "NARA Catalog Node Client",
+          "issues": {
+            "enhancements": [],
+            "warnings": [
+              {
+                "keyword": "type",
+                "dataPath": ".exemption",
+                "schemaPath": "#/properties/exemption/type",
+                "params": {
+                  "type": "integer"
+                },
+                "message": "should be integer"
+              }
+            ],
+            "errors": []
+          }
+        },
+        {
+          "repoID": "nara_national_archives_records_administration_nara_catalog_ruby_client",
+          "agency": "National Archives",
+          "organization": "National Archives and Records Administration",
+          "project_name": "NARA Catalog Ruby Client",
+          "issues": {
+            "enhancements": [],
+            "warnings": [
+              {
+                "keyword": "type",
+                "dataPath": ".exemption",
+                "schemaPath": "#/properties/exemption/type",
+                "params": {
+                  "type": "integer"
+                },
+                "message": "should be integer"
+              }
+            ],
+            "errors": []
+          }
+        },
+        {
+          "repoID": "nara_national_archives_records_administration_federalregister_gov_ruby_api_client",
+          "agency": "National Archives",
+          "organization": "National Archives and Records Administration",
+          "project_name": "FederalRegister.gov Ruby API Client",
+          "issues": {
+            "enhancements": [],
+            "warnings": [
+              {
+                "keyword": "type",
+                "dataPath": ".exemption",
+                "schemaPath": "#/properties/exemption/type",
+                "params": {
+                  "type": "integer"
+                },
+                "message": "should be integer"
+              }
+            ],
+            "errors": []
+          }
+        },
         {
           "repoID": "nara_national_archives_records_administration_federal_register_2_0_web_display",
           "agency": "National Archives",
@@ -14616,7 +14593,59 @@
                 "message": "should be string"
               }
             ],
-            "warnings": [],
+            "warnings": [
+              {
+                "keyword": "type",
+                "dataPath": ".exemption",
+                "schemaPath": "#/properties/exemption/type",
+                "params": {
+                  "type": "integer"
+                },
+                "message": "should be integer"
+              }
+            ],
+            "errors": []
+          }
+        },
+        {
+          "repoID": "nara_national_archives_records_administration_nara_file_analyzer_and_metadata_harvester",
+          "agency": "National Archives",
+          "organization": "National Archives and Records Administration",
+          "project_name": "NARA File Analyzer and Metadata Harvester",
+          "issues": {
+            "enhancements": [],
+            "warnings": [
+              {
+                "keyword": "type",
+                "dataPath": ".exemption",
+                "schemaPath": "#/properties/exemption/type",
+                "params": {
+                  "type": "integer"
+                },
+                "message": "should be integer"
+              }
+            ],
+            "errors": []
+          }
+        },
+        {
+          "repoID": "nara_national_archives_records_administration_mediainfo",
+          "agency": "National Archives",
+          "organization": "National Archives and Records Administration",
+          "project_name": "MediaInfo",
+          "issues": {
+            "enhancements": [],
+            "warnings": [
+              {
+                "keyword": "type",
+                "dataPath": ".exemption",
+                "schemaPath": "#/properties/exemption/type",
+                "params": {
+                  "type": "integer"
+                },
+                "message": "should be integer"
+              }
+            ],
             "errors": []
           }
         },
@@ -14637,7 +14666,80 @@
                 "message": "should be string"
               }
             ],
-            "warnings": [],
+            "warnings": [
+              {
+                "keyword": "type",
+                "dataPath": ".exemption",
+                "schemaPath": "#/properties/exemption/type",
+                "params": {
+                  "type": "integer"
+                },
+                "message": "should be integer"
+              }
+            ],
+            "errors": []
+          }
+        },
+        {
+          "repoID": "nara_national_archives_records_administration_nara_catalog_api_twitterbot",
+          "agency": "National Archives",
+          "organization": "National Archives and Records Administration",
+          "project_name": "NARA Catalog API Twitterbot",
+          "issues": {
+            "enhancements": [],
+            "warnings": [
+              {
+                "keyword": "type",
+                "dataPath": ".exemption",
+                "schemaPath": "#/properties/exemption/type",
+                "params": {
+                  "type": "integer"
+                },
+                "message": "should be integer"
+              }
+            ],
+            "errors": []
+          }
+        },
+        {
+          "repoID": "nara_national_archives_records_administration_video_frame_analyzer",
+          "agency": "National Archives",
+          "organization": "National Archives and Records Administration",
+          "project_name": "Video Frame Analyzer",
+          "issues": {
+            "enhancements": [],
+            "warnings": [
+              {
+                "keyword": "type",
+                "dataPath": ".exemption",
+                "schemaPath": "#/properties/exemption/type",
+                "params": {
+                  "type": "integer"
+                },
+                "message": "should be integer"
+              }
+            ],
+            "errors": []
+          }
+        },
+        {
+          "repoID": "nara_national_archives_records_administration_wartime_films_apps_and_metadata_tools",
+          "agency": "National Archives",
+          "organization": "National Archives and Records Administration",
+          "project_name": "Wartime Films Apps and Metadata Tools",
+          "issues": {
+            "enhancements": [],
+            "warnings": [
+              {
+                "keyword": "type",
+                "dataPath": ".exemption",
+                "schemaPath": "#/properties/exemption/type",
+                "params": {
+                  "type": "integer"
+                },
+                "message": "should be integer"
+              }
+            ],
             "errors": []
           }
         }
@@ -14648,22 +14750,22 @@
           "name": "National Archives",
           "acronym": "NARA",
           "website": "https://archives.gov/",
-          "codeUrl": "https://archives.gov/code.json",
+          "codeUrl": "/data/fallback/NARA.json",
           "requirements": {
-            "agencyWidePolicy": 1,
-            "schemaFormat": 1,
-            "overallCompliance": 1
+            "agencyWidePolicy": 0,
+            "schemaFormat": 0.5,
+            "overallCompliance": 0.25
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": 1,
-        "schemaFormat": 1,
-        "overallCompliance": 1
+        "agencyWidePolicy": 0,
+        "schemaFormat": 0.5,
+        "overallCompliance": 0.25
       }
     },
     "CFPB": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 0)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -14672,22 +14774,22 @@
           "name": "Consumer Financial Protection Bureau",
           "acronym": "CFPB",
           "website": "https://consumerfinance.gov/",
-          "codeUrl": "https://consumerfinance.gov/code.json",
+          "codeUrl": "/data/fallback/CFPB.json",
           "requirements": {
-            "agencyWidePolicy": null,
+            "agencyWidePolicy": 0,
             "schemaFormat": 0,
             "overallCompliance": 0
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": null,
+        "agencyWidePolicy": 0,
         "schemaFormat": 0,
         "overallCompliance": 0
       }
     },
     "EOP": {
-      "status": "FAILURE: ERROR WHEN FETCHING (Unexpected token < in JSON at position 1)",
+      "status": "FAILURE: MISSING PROJECTS FIELD",
       "issues": [],
       "version": "",
       "metadata": {
@@ -14696,41 +14798,18 @@
           "name": "White House - Executive Office of the President",
           "acronym": "EOP",
           "website": "https://whitehouse.gov/",
-          "codeUrl": "https://whitehouse.gov/code.json",
+          "codeUrl": "/data/fallback/EOP.json",
           "requirements": {
-            "agencyWidePolicy": null,
+            "agencyWidePolicy": 0,
             "schemaFormat": 0,
             "overallCompliance": 0
           }
         }
       },
       "requirements": {
-        "agencyWidePolicy": null,
+        "agencyWidePolicy": 0,
         "schemaFormat": 0,
         "overallCompliance": 0
-      }
-    },
-    "SSA": {
-      "status": "FULLY COMPLIANT: 0 validation errors",
-      "issues": [],
-      "version": "1.0.1",
-      "metadata": {
-        "agency": {
-          "name": "Social Security Administration",
-          "acronym": "SSA",
-          "website": "https://www.ssa.gov",
-          "codeUrl": "https://www.ssa.gov/code.json",
-          "requirements": {
-            "agencyWidePolicy": 1,
-            "schemaFormat": 1,
-            "overallCompliance": 1
-          }
-        }
-      },
-      "requirements": {
-        "agencyWidePolicy": 1,
-        "schemaFormat": 1,
-        "overallCompliance": 1
       }
     }
   }

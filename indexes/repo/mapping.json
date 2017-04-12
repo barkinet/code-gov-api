@@ -73,15 +73,58 @@
           }
         }
       },
-      "events": {
-        "type": "string",
-        "analyzer": "keyword_ci",
-        "fields": {
-          "_fulltext": {
+      "contributors": {
+        "type": "nested",
+        "include_in_root": "true",
+        "properties": {
+          "login": {
+            "type": "string",
+            "analyzer": "englishfulltext"
+          },
+          "avatar_url": {
+            "type": "string",
+            "analyzer": "englishfulltext"
+          },
+          "html_url": {
             "type": "string",
             "analyzer": "englishfulltext"
           }
-        }
+      }
+      },
+      "events": {
+        "type": "nested",
+        "include_in_root": "true",
+        "properties": {
+          "id": {
+            "type": "string",
+            "analyzer": "englishfulltext"
+          },
+          "name": {
+            "type": "string",
+            "analyzer": "englishfulltext"
+          },
+          "type": {
+            "type": "string",
+            "analyzer": "englishfulltext"
+          },
+          "user": {
+            "type": "string",
+            "analyzer": "englishfulltext"
+          },
+          "time": {
+            "type": "date",
+            "format": "strict_date_optional_time||epoch_millis"
+          },
+          "message": {
+            "type": "string",
+            "analyzer": "englishfulltext"
+          },
+          "url": {
+            "type": "string",
+            "analyzer": "englishfulltext"
+          }
+          
+      }
       },
       "tags": {
         "type": "string",
