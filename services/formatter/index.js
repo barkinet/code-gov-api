@@ -14,7 +14,7 @@ const request             = require("request");
 const sleep               = require("sleep");
 
 var licensename="";
-var contributors, contributordata=[], events,eventdata,eventfeed;
+var contributors,contributordata=[], events,eventdata,eventfeed;
 
 class Formatter {
 
@@ -130,7 +130,7 @@ class Formatter {
          
       if(events[0]!=undefined) {
         console.log("type: " +events[0].type);
-         for (var i=0;i< Math.min(limit,events.length); i++)
+         for (i=0;i< Math.min(limit,events.length); i++)
            {
              //eventdata= [{"avatar_url":contributors[i].avatar_url}];
              
@@ -230,6 +230,7 @@ return eventdata;
  
     
  var i,limit = 1;
+    
   var contributorsurl = repo.repository;
 
 //contributordata.push({"login":"testuser","avatar_url":"https://avatars2.githubusercontent.com/u/6654994?v=3","html_url":"https://github.com/lukad03"});
@@ -264,10 +265,11 @@ return eventdata;
        
       
        try{
+         contributordata.length=0; //clear the array
       contributors=JSON.parse(body);
       if (contributors[0]!=undefined){
          console.log("login: " +contributors[0].login);
-         for (var i=0;i< Math.min(limit,contributors.length); i++)
+         for (i=0;i< Math.min(limit,contributors.length); i++)
            {
              contributordata.push({"login":contributors[i].login,"avatar_url":contributors[i].avatar_url,"html_url":contributors[i].html_url});
            }
@@ -310,7 +312,7 @@ return contributordata;
       delete repo.agency.id;
     }
     
-    repo.license_name=this._formatLicense(repo);
+    //repo.license_name=this._formatLicense(repo);
     repo.contributors=this._formatContributors(repo);
     //repo.events=JSON.parse(this._formatEvents(repo));
     this._formatDates(repo);
