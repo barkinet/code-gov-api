@@ -22,4 +22,4 @@ applications:
   services:
   - elastic-staging-service
   stack: cflinuxfs2
-  command: node ./scripts/index/repo/index.js | ./node_modules/bunyan/bin/bunyan
+  command: node ./scripts/index/index.js | ./node_modules/bunyan/bin/bunyan

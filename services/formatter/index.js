@@ -101,7 +101,7 @@ class Formatter {
  } else {
    
    //sleep.msleep(Math.floor(Math.random()*(2500-1000+1)+1000)); 
-   sleep.msleep(150); 
+   sleep.msleep(500); 
    eventsurl = eventsurl.replace("https://github.com/", "https://api.github.com/repos/");
    eventsurl += "/events";
    
@@ -229,7 +229,7 @@ return eventdata;
      // add event activity to repo for GitHub repos
  
     
- var i,limit = 1;
+ var i;
     
   var contributorsurl = repo.repository;
 
@@ -241,7 +241,7 @@ return eventdata;
  } else {
    
    //sleep.msleep(Math.floor(Math.random()*(2500-1000+1)+1000)); 
-   sleep.msleep(50); 
+   sleep.msleep(1000); 
    contributorsurl = contributorsurl.replace("https://github.com/", "https://api.github.com/repos/");
    contributorsurl += "/contributors";
    
@@ -269,7 +269,7 @@ return eventdata;
       contributors=JSON.parse(body);
       if (contributors[0]!=undefined){
          console.log("login: " +contributors[0].login);
-         for (i=0;i< Math.min(limit,contributors.length); i++)
+         for (i=0;i< contributors.length; i++)
            {
              contributordata.push({"login":contributors[i].login,"avatar_url":contributors[i].avatar_url,"html_url":contributors[i].html_url});
            }
@@ -312,7 +312,7 @@ return contributordata;
       delete repo.agency.id;
     }
     
-    //repo.license_name=this._formatLicense(repo);
+    repo.license_name=this._formatLicense(repo);
     repo.contributors=this._formatContributors(repo);
     //repo.events=JSON.parse(this._formatEvents(repo));
     this._formatDates(repo);
