@@ -14,7 +14,7 @@ const request             = require("request");
 const sleep               = require("sleep");
 
 var licensename="";
-var contributors,contributordata=[], events,eventdata,eventfeed;
+var contributors,contributordata=[], events,eventdata,eventfeed, languages,languagedata;
 
 class Formatter {
 
@@ -225,6 +225,7 @@ return eventdata;
 
    
   }
+  
   _formatContributors(repo) {
      // add event activity to repo for GitHub repos
  
@@ -237,7 +238,7 @@ return eventdata;
     //contributordata.push({"login":"testuser2","avatar_url":"https://avatars2.githubusercontent.com/u/6654994?v=3","html_url":"https://github.com/lukad04"});
     
  if (!contributorsurl.includes("github.com")) {
-   repo["events"] = [];
+   repo["contributors"] = [];
  } else {
    
    //sleep.msleep(Math.floor(Math.random()*(2500-1000+1)+1000)); 
@@ -250,8 +251,9 @@ return eventdata;
    var options = {
      url: contributorsurl + "?client_id=" + process.env.CLIENT_ID + "&client_secret=" + process.env.CLIENT_SECRET,
      headers: {
-       'User-Agent': 'request',
-       'Accept': 'application/vnd.github.v3+json'
+       'User-Agent': 'code-gov-api',
+       'Accept': 'application/vnd.github.v3+json',
+       'Content-Type': 'application/json'
      }
    };
 
@@ -259,7 +261,7 @@ return eventdata;
    request(options, function (err, response, body){
       if (err){
         
-        console.error("event error: "+err);
+        console.error("contributor error: "+err);
       }
      else{
        
@@ -295,7 +297,75 @@ return contributordata;
 
    
   }
+_formatLanguages(repo) {
+     // add language to repo for GitHub repos
+ 
+    
+ var i;
+    
+  var languagesurl = repo.repository;
 
+    
+ if (!languagesurl.includes("github.com")) {
+   repo["languages"] = [];
+ } else {
+   
+   sleep.msleep(Math.floor(Math.random()*(1000-100+1)+250)); 
+    
+   languagesurl = languagesurl.replace("https://github.com/", "https://api.github.com/repos/");
+   languagesurl += "/languages";
+   
+   console.log("languagesurl: " +languagesurl);
+
+   var options = {
+     url: languagesurl + "?client_id=" + process.env.CLIENT_ID + "&client_secret=" + process.env.CLIENT_SECRET,
+     headers: {
+       'User-Agent': 'code-gov-api',
+       'Accept': 'application/vnd.github.v3+json',
+       'Content-Type': 'application/json'
+     }
+   };
+
+   
+   request(options, function (err, response, body){
+      if (err){
+        
+        console.error("languages error: "+err);
+      }
+     else{
+       
+      
+       try{
+         languagedata.length=0; //clear the array
+      languages=JSON.parse(body);
+      if (languages[0]!=undefined){
+         console.log("language: " +languages[0].keys[0]);
+         for (i=0;i< languages[0].length; i++)
+           {
+             languagedata.push(languages[0].keys[i]);
+           }
+        }  
+       }//closing try
+       catch(e)
+         {
+           console.error(e);
+         }
+       
+      
+     
+    }
+    
+   });
+     
+
+
+ } //else
+
+    
+return languagedata;
+
+   
+  }
   _formatRepo(repo) {
     // add repoId using a combination of agency acronym, organization, and
     // project name fields
@@ -311,9 +381,9 @@ return contributordata;
     if (repo.agency && repo.agency.id) {
       delete repo.agency.id;
     }
-    
-    repo.license_name=this._formatLicense(repo);
-    repo.contributors=this._formatContributors(repo);
+    repo.languages=this._formatLanguages(repo);
+    //repo.license_name=this._formatLicense(repo);
+    //repo.contributors=this._formatContributors(repo);
     //repo.events=JSON.parse(this._formatEvents(repo));
     this._formatDates(repo);
 
