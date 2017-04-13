@@ -336,13 +336,15 @@ _formatLanguages(repo) {
        
       
        try{
-         languagedata.length=0; //clear the array
+         //languagedata.length=0; //clear the array
       languages=JSON.parse(body);
       if (languages!=undefined){
-         console.log("language: " +languages.keys[0]);
+        //console.log("final url: "+options.url);
+        //console.log("body: " +JSON.stringify(languages));
+         //console.log("language: " +Object.keys(languages)[0]); 
          for (i=0;i< languages.length; i++)
            {
-             languagedata.push(languages.keys[i]);
+             languagedata.push(Object.keys(languages)[i]);
            }
         }  
        }//closing try
