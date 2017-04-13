@@ -101,7 +101,7 @@ class Formatter {
  } else {
    
    //sleep.msleep(Math.floor(Math.random()*(2500-1000+1)+1000)); 
-   sleep.msleep(500); 
+   sleep.msleep(Math.floor(Math.random()*(1000-100+1)+250)); 
    eventsurl = eventsurl.replace("https://github.com/", "https://api.github.com/repos/");
    eventsurl += "/events";
    
@@ -242,11 +242,11 @@ return eventdata;
  } else {
    
    //sleep.msleep(Math.floor(Math.random()*(2500-1000+1)+1000)); 
-   sleep.msleep(1000); 
+   sleep.msleep(Math.floor(Math.random()*(1000-100+1)+250));
    contributorsurl = contributorsurl.replace("https://github.com/", "https://api.github.com/repos/");
    contributorsurl += "/contributors";
    
-   console.log("eventsurl: " +contributorsurl);
+   console.log("contributorsurl: " +contributorsurl);
 
    var options = {
      url: contributorsurl + "?client_id=" + process.env.CLIENT_ID + "&client_secret=" + process.env.CLIENT_SECRET,
