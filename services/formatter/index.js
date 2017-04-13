@@ -338,11 +338,11 @@ _formatLanguages(repo) {
        try{
          languagedata.length=0; //clear the array
       languages=JSON.parse(body);
-      if (languages[0]!=undefined){
-         console.log("language: " +languages[0].keys[0]);
-         for (i=0;i< languages[0].length; i++)
+      if (languages!=undefined){
+         console.log("language: " +languages.keys[0]);
+         for (i=0;i< languages.length; i++)
            {
-             languagedata.push(languages[0].keys[i]);
+             languagedata.push(languages.keys[i]);
            }
         }  
        }//closing try
