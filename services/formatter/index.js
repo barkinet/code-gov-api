@@ -13,6 +13,8 @@ const request_promise     = require("request-promise");
 const request             = require("request");
 const sleep               = require("sleep");
 
+let lastupdated,etag;
+
 var licensename="";
 var contributors,contributordata=[], events,eventdata,eventfeed, languages,languagedata;
 
@@ -317,22 +319,60 @@ _formatLanguages(repo) {
    
    console.log("languagesurl: " +languagesurl);
 
-   var options = {
+   var options1 = {
      url: languagesurl + "?client_id=" + process.env.CLIENT_ID + "&client_secret=" + process.env.CLIENT_SECRET,
      headers: {
        'User-Agent': 'code-gov-api',
        'Accept': 'application/vnd.github.v3+json',
-       'Content-Type': 'application/json'
+       'Content-Type': 'application/json',
+       'Cache-Control': 'public, max-age=604800',
+       'Access-Control-Expose-Headers': 'ETag,X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-Poll-Interval, Last-Modified'  
+       
+     }
+   };
+   
+   request(options1, function (err, response, body){
+     if (err){
+       console.error("initial language request error: "+err);
+     }
+     else{
+       etag = response.headers['etag'];
+       lastupdated = response.headers['last-modified'];
+       
+     }
+   });
+   
+    var options2 = {
+     url: languagesurl + "?client_id=" + process.env.CLIENT_ID + "&client_secret=" + process.env.CLIENT_SECRET,
+     headers: {
+       'User-Agent': 'code-gov-api',
+       'Accept': 'application/vnd.github.v3+json',
+       'Content-Type': 'application/json',
+       'Cache-Control': 'public, max-age=604800',
+       'Access-Control-Expose-Headers': 'ETag,X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-Poll-Interval, Last-Modified',
+       'If-None-Match':etag,
+       'If-Modified-Since': lastupdated
      }
    };
 
    
-   request(options, function (err, response, body){
+   request(options2, function (err, response, body){
       if (err){
         
         console.error("languages error: "+err);
+        
       }
+     else if (response.headers['status']=="304 Not Modified"){
+       console.log("Status is: "+ response.headers['status']);
+       console.log("Requests Remaining is: "+ response.headers['x-ratelimit-remaining']);
+       //console.log("304 Not Modified");
+       return repo.languages;
+     }
      else{
+       
+       console.log("Status is: "+ response.headers['status']);
+       console.log("ETag is: "+ response.headers['etag']);
+       console.log("Requests Remaining is: "+ response.headers['x-ratelimit-remaining']);
        
       
        try{
