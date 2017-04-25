@@ -16,7 +16,7 @@ const sleep               = require("sleep");
 let lastupdated,etag;
 
 var licensename="";
-var contributors,contributordata=[], events,eventdata,eventfeed, languages,languagedata;
+var contributors,contributordata=[], events,eventdata,eventfeed, languages,languagedata,graphqlresponse, graphqldata, githubresponse;
 
 class Formatter {
 
@@ -44,7 +44,7 @@ class Formatter {
       }
     }
   }
-  _formatLicense(repo){
+_formatLicense(repo){
   
     var license_array = new Array();
     
@@ -90,7 +90,7 @@ class Formatter {
     return licensename; 
     
 }
-  _formatEvents(repo) {
+_formatEvents(repo) {
      // add event activity to repo for GitHub repos
  
     
@@ -226,9 +226,8 @@ class Formatter {
 return eventdata;
 
    
-  }
-  
-  _formatContributors(repo) {
+  }   
+_formatContributors(repo) {
      // add event activity to repo for GitHub repos
  
     
@@ -408,6 +407,80 @@ return languagedata;
 
    
   }
+_formatGitHubApi(repo){
+   
+     // add GraphQL detail from GitHub API
+ 
+    
+ var i, org_name, repo_name;
+    
+  var repositoryurl = repo.repository;
+    
+ if (repositoryurl.includes("github.com")) {
+  
+   
+   //sleep.msleep(Math.floor(Math.random()*(2500-1000+1)+1000)); 
+   sleep.msleep(Math.floor(Math.random()*(1000-100+1)+250));
+   repositoryurl = repositoryurl.replace("https://github.com/", "");
+   repositoryurl = repositoryurl.replace("http://github.com/", "");
+   repositoryurl = repositoryurl.split("/"); 
+   org_name = repositoryurl[0];
+   repo_name = repositoryurl[1];
+   
+   console.log("repositoryurl: " +repositoryurl);
+   console.log("org_name: " +org_name);
+   console.log("repo_name: " +repo_name);
+   
+
+   var options = {
+     url: "https://api.github.com/graphql?access_token="+process.env.ACCESS_TOKEN,
+     headers: {
+       'User-Agent': 'code-gov-api',
+       'Accept': 'application/vnd.github.v3+json',
+       'Content-Type': 'application/json',
+       form: '{"query": "query {repository(owner: \"'+org_name+'\", name: \"'+repo_name+'\") { commitComments(last:5){nodes{author {avatarURL login path } commit { message } createdAt } } languages(first:5) { edges { node { name } } } license watchers(last:5) { edges { node { login avatarURL } } } } } " }',
+       'Cache-Control': 'public, max-age=604800',
+       'Access-Control-Expose-Headers': 'ETag,X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-Poll-Interval, Last-Modified'  
+     }
+   };
+
+   
+   request.post(options, function (err, response, body){
+      if (err){
+        
+        console.error("graphql error: "+err);
+      }
+     else{
+       
+      console.log("Requests Remaining is: "+ response.headers['x-ratelimit-remaining']);
+       try{
+         graphqldata.length=0; //clear the array
+      graphqlresponse=JSON.parse(body);
+      if (graphqlresponse["data"]["repository"]!=undefined){
+         console.log("repo language: " +graphqlresponse["data"]["repository"]["license"]);
+             graphqldata.push(graphqlresponse["data"]["repository"]);
+        }  
+       }//closing try
+       catch(e)
+         {
+           console.error(e);
+         }
+       
+      
+     
+    }
+    
+   });
+     
+
+
+ } //else
+
+    
+return graphqldata;
+
+    
+  }
   _formatRepo(repo) {
     // add repoId using a combination of agency acronym, organization, and
     // project name fields
@@ -423,10 +496,15 @@ return languagedata;
     if (repo.agency && repo.agency.id) {
       delete repo.agency.id;
     }
-    repo.languages=this._formatLanguages(repo);
+    //repo.languages=this._formatLanguages(repo);
     //repo.license_name=this._formatLicense(repo);
     //repo.contributors=this._formatContributors(repo);
     //repo.events=JSON.parse(this._formatEvents(repo));
+    githubresponse = this._formatGitHubApi(repo); 
+    repo.languages= githubresponse["languages"];
+    repo.license_name= githubresponse["license"];
+    repo.contributors=githubresponse["watchers"];
+    //repo.events=githubresponse["commitComments"];
     this._formatDates(repo);
 
     return repo;
